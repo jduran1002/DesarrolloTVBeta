@@ -134,6 +134,4 @@ USUARIOS_PERMITIDOS = [
 
 Este proyecto se encuentra en producción y en constante mejora. Para nuevas funciones, contacta al equipo de desarrollo.
 
-```
 
-```

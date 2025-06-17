@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reproductor de Video</title>
+    <style>
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+            /* Elimina el margen blanco */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #000;
+            /* Fondo negro para mejorar la visualización */
+        }
+
+        .video-container {
+            width: 100%;
+            /* Ocupa todo el ancho disponible */
+            height: 100%;
+            /* Ocupa toda la altura disponible */
+            max-width: 100%;
+            /* Evita el margen */
+            max-height: 100%;
+            /* Evita el margen */
+        }
+
+        video {
+            width: 100%;
+            /* Hace que el video ocupe todo el contenedor */
+            height: 100%;
+            /* Hace que el video ocupe toda la altura del contenedor */
+            object-fit: cover;
+            /* Mantiene la proporción y recorta si es necesario */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="video-container">
+        <video id="videoPlayer" controls>
+            Tu navegador no soporta la reproducción de este video.
+        </video>
+    </div>
+
+    <script>
+        const video = document.getElementById('videoPlayer');
+        let videos = [];
+        let currentVideoIndex = 0;
+
+        function playVideo(src) {
+            video.src = src;
+            video.play().catch(error => {
+                console.error("No se pudo reproducir el video.", error);
+            });
+        }
+
+        function playNextVideo() {
+            currentVideoIndex++;
+            if (currentVideoIndex < videos.length) {
+                playVideo(videos[currentVideoIndex].url);
+            } else {
+                currentVideoIndex = 0; // Reinicia la lista
+                playVideo(videos[currentVideoIndex].url); // Reproduce el primer video de nuevo
+            }
+        }
+
+        window.onload = function () {
+            fetch('/list_videos')
+                .then(response => response.json())
+                .then(videoList => {
+                    videos = videoList;
+                    if (videos.length > 0) {
+                        playVideo(videos[0].url); // Reproduce el primer video
+                    }
+                });
+
+            // Escuchar el evento 'ended' para pasar al siguiente video
+            video.addEventListener('ended', playNextVideo);
+        };
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visor de Imágenes</title>
+    <style>
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background-color: #000;
+        }
+
+        #imageViewer {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <img id="imageViewer" src="" alt="Visor de imágenes" />
+
+    <script>
+        let currentImageIndex = 0;
+        let images = [];
+
+        function updateImageViewer(src) {
+            const img = document.getElementById('imageViewer');
+            img.src = src;
+            img.style.display = 'block';
+        }
+
+        function playNextImage() {
+            if (images.length === 0) return;
+            currentImageIndex = (currentImageIndex + 1) % images.length;
+            updateImageViewer(images[currentImageIndex].url);
+        }
+
+        window.onload = function () {
+            fetch('/list_images')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(imageList => {
+                    if (!Array.isArray(imageList)) {
+                        throw new Error("La respuesta no es un array de imágenes.");
+                    }
+                    images = imageList;
+                    if (images.length > 0 && images[0].url) {
+                        updateImageViewer(images[0].url);
+                        setInterval(playNextImage, 10000);
+                    } else {
+                        console.warn("No hay imágenes para mostrar.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error al obtener la lista de imágenes:", error);
+                });
+        };
+    </script>
+</body>
+
+</html>

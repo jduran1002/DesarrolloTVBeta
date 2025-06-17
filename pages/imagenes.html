@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" sizes="76x76" href="../assets/">
+  <link rel="icon" type="image/png" href="../assets/img/">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Incluye el CSS de Swiper -->
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+  <title>Promociones Y Cobranzas Beta</title>
+  <!-- Fonts and icons -->
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Noto+Sans:300,400,500,600,700,800|PT+Mono:300,400,500,600,700"
+    rel="stylesheet" />
+  <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
+  <script src="https://kit.fontawesome.com/349ee9c857.js" crossorigin="anonymous"></script>
+  <link id="pagestyle" href="../assets/css/corporate-ui-dashboard.css?v=1.0.0" rel="stylesheet" />
+  <!-- SortableJS para reordenar la playlist -->
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
+  <style>
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    main {
+      flex: 1 0 auto;
+    }
+
+    #imageViewer {
+      max-width: 100%;
+      display: none;
+    }
+
+    .playlist-item {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      padding: 8px 4px;
+      border-radius: 6px;
+      transition: background 0.2s;
+      user-select: none;
+    }
+
+    .img-thumbnail {
+      max-width: 60px;
+      max-height: 60px;
+    }
+
+    .playlist-item.active {
+      background: #e5e5e5;
+    }
+
+    .footer {
+      flex-shrink: 0;
+      margin-top: 0 !important;
+    }
+
+    .playlist-items {
+      min-height: 140px;
+      border: 1px solid #eee;
+      border-radius: 8px;
+      background: #fafafb;
+      padding: 8px 0;
+    }
+
+    .playlist-item.sortable-chosen {
+      background: #cce5ff !important;
+    }
+  </style>
+</head>
+
+<body class="d-flex flex-column min-vh-100 bg-gray-100 g-sidenav-show">
+  <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 bg-slate-900 fixed-start" id="sidenav-main">
+    <div class="sidenav-header">
+      <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
+        aria-hidden="true" id="iconSidenav"></i>
+      <a class="navbar-brand d-flex align-items-center m-0" href=" " target="_blank">
+        <span class="font-weight-bold text-lg">PYCB Multimedia</span>
+      </a>
+    </div>
+    <div class="collapse navbar-collapse px-4  w-auto " id="sidenav-collapse-main">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" href="./dashboard.html">
+            <div class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
+              <svg width="30px" height="30px" viewBox="0 0 24 24" fill="#FFFFFF">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </div>
+            <span class="nav-link-text ms-1">Reproductor Video</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./imagenes.html">
+            <div class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
+              <svg width="30px" height="30px" viewBox="0 0 24 24" fill="#FFFFFF">
+                <path
+                  d="M21 15V7c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zm0-2H3V7h16v6zm-4-1l-3-3-3 3h6z" />
+              </svg>
+            </div>
+            <span class="nav-link-text ms-1">Reproductor Imagenes</span>
+          </a>
+          <a class="nav-link" href="./video.html">
+            <div class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
+              <svg width="30px" height="30px" viewBox="0 0 24 24" fill="#FFFFFF">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </div>
+            <span class="nav-link-text ms-1">Video</span>
+          </a>
+          <a class="nav-link" href="./imagen.html">
+            <div class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
+              <svg width="30px" height="30px" viewBox="0 0 24 24" fill="#FFFFFF">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </div>
+            <span class="nav-link-text ms-1">Imagenes</span>
+          </a>
+        </li>
+        <div class="col-auto">
+          <a href="/logout" class="btn btn-danger ms-3 mb-0">Cerrar Sesión</a>
+        </div>
+      </ul>
+    </div>
+  </aside>
+  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg flex-grow-1">
+    <nav class="navbar navbar-main navbar-expand-lg mx-5 px-0 shadow-none rounded" id="navbarBlur" navbar-scroll="true">
+      <div class="container-fluid py-1 px-2">
+        <a class="navbar-brand" href="" rel="tooltip" title="Designed and Coded by Creative Tim" data-placement="bottom"
+          target="_blank">
+          Promociones Y Cobranzas Beta
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
+          aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navigation">
+          <ul class="navbar-nav navbar-nav-hover ms-auto">
+            <div class="row">
+              <div class="col-auto">
+                <div class="d-flex align-items-center me-2">
+                  <input type="text" class="form-control ps-3" placeholder="Type here...">
+                  <button class="btn btn-dark ms-1 mb-0">Buscar</button>
+                </div>
+              </div>
+            </div>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid py-4 px-5">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="d-md-flex align-items-center mb-3 mx-2">
+            <div class="mb-md-0 mb-3">
+              <h3 class="font-weight-bold mb-0">Hola!</h3>
+              <p class="mb-0">Reproductor de Imágenes</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr class="my-0">
+
+      <!-- Sección de alertas -->
+      <div id="alertsContainer" class="mb-3">
+        <div class="alert bg-gradient-success alert-dismissible text-sm text-white fade show" role="alert"
+          id="successAlert" style="display: none;">
+          <span class="alert-icon"><i class="ni ni-like-2"></i></span>
+          <span class="alert-text"><strong>¡Éxito!</strong></span>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+            onclick="closeAlert('successAlert')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="alert bg-gradient-danger alert-dismissible text-sm text-white fade show" role="alert"
+          id="dangerAlert" style="display: none;">
+          <span class="alert-icon"><i class="ni ni-like-2"></i></span>
+          <span class="alert-text"><strong>¡Peligro!</strong></span>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+            onclick="closeAlert('dangerAlert')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <!-- Reproductor de imágenes personalizado -->
+        <div class="col-md-8">
+          <div class="image-viewer-container">
+            <img id="imageViewer" src="" alt="Visor de imágenes" style="max-width: 100%; display: none;" />
+            <div class="controls mt-3">
+              <input type="file" id="fileInput" accept="image/*" class="form-control mb-2" />
+              <button id="fullscreen" class="btn btn-info">Pantalla Completa</button>
+              <button id="clearPlaylistButton" class="btn btn-danger">Limpiar Lista</button>
+            </div>
+            <div id="errorMessage" class="error-message"></div>
+          </div>
+        </div>
+
+        <!-- Lista de reproducción -->
+        <div class="col-md-4">
+          <div class="playlist-container">
+            <h4>Lista de Reproducción</h4>
+            <div class="playlist-items" id="playlist">
+              <!-- Se cargará dinámicamente -->
+            </div>
+            <div class="text-muted mt-2" style="font-size:0.95em;">
+              Arrastra para cambiar el orden.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer pt-3 mt-auto bg-white border-top">
+    <div class="container-fluid">
+      <div class="row align-items-center justify-content-between">
+        <div class="col-lg-6 mb-lg-0 mb-4">
+          <div class="copyright text-center text-xs text-muted text-lg-start">
+            Copyright ©
+            <script>
+              document.write(new Date().getFullYear())
+            </script>
+            Promociones Y Cobranzas Beta
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <ul class="nav nav-footer justify-content-center justify-content-lg-end">
+            <li class="nav-item">
+              <a href="#" class="nav-link text-xs text-muted" target="_blank">Juan David Duran</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!--   Core JS Files   -->
+  <script src="../assets/js/core/popper.min.js"></script>
+  <script src="../assets/js/core/bootstrap.min.js"></script>
+  <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
+  <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
+  <script src="../assets/js/plugins/chartjs.min.js"></script>
+  <script src="../assets/js/plugins/swiper-bundle.min.js" type="text/javascript"></script>
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script>
+    function closeAlert(alertId) {
+      document.getElementById(alertId).style.display = 'none';
+    }
+
+    function showAlert(alertId, message) {
+      const alert = document.getElementById(alertId);
+      alert.querySelector('.alert-text').innerHTML = message;
+      alert.style.display = 'block';
+      setTimeout(() => closeAlert(alertId), 3000);
+    }
+    function showSuccessAlert(message) {
+      showAlert('successAlert', `<strong>¡Éxito!</strong> ${message}`);
+    }
+    function showDangerAlert(message) {
+      showAlert('dangerAlert', `<strong>¡Atención!</strong> ${message}`);
+    }
+
+    let images = [];
+    let currentImageIndex = 0;
+    let randomInterval = null;
+
+    function updateImageViewer(src) {
+      const img = document.getElementById('imageViewer');
+      img.src = src;
+      img.style.display = 'block';
+    }
+
+    function renderPlaylist() {
+      const playlist = document.getElementById('playlist');
+      playlist.innerHTML = "";
+      images.forEach((img, idx) => {
+        const item = document.createElement('div');
+        item.className = "playlist-item";
+        item.setAttribute("data-src", img.url);
+        item.innerHTML = `
+                          <img src="${img.url}" alt="${img.name}" class="img-thumbnail mr-2"> ${img.name}`;
+        item.onclick = () => {
+          currentImageIndex = idx;
+          updateImageViewer(img.url);
+          clearInterval(randomInterval);
+          startSlideshow();
+          setActivePlaylistItem(idx);
+        };
+        playlist.appendChild(item);
+      });
+      setActivePlaylistItem(currentImageIndex);
+      initSortable();
+    }
+
+    function setActivePlaylistItem(idx) {
+      const items = document.querySelectorAll('.playlist-item');
+      items.forEach((it, i) => it.classList.toggle('active', i === idx));
+    }
+
+    function startSlideshow() {
+      if (images.length === 0) {
+        showDangerAlert("La lista de reproducción está vacía.");
+        document.getElementById('imageViewer').style.display = 'none';
+        return;
+      }
+      clearInterval(randomInterval);
+      updateImageViewer(images[currentImageIndex].url);
+      setActivePlaylistItem(currentImageIndex);
+      randomInterval = setInterval(() => {
+        currentImageIndex = (currentImageIndex + 1) % images.length;
+        updateImageViewer(images[currentImageIndex].url);
+        setActivePlaylistItem(currentImageIndex);
+      }, 10000);
+    }
+
+    function fetchImagesAndRender() {
+      fetch('/list_images')
+        .then(res => res.json())
+        .then(data => {
+          images = data || [];
+          currentImageIndex = 0;
+          renderPlaylist();
+          if (images.length > 0) {
+            updateImageViewer(images[0].url);
+            startSlideshow();
+          } else {
+            document.getElementById('imageViewer').style.display = 'none';
+            clearInterval(randomInterval);
+          }
+        })
+        .catch(() => showDangerAlert("No se pudo cargar la lista de imágenes."));
+    }
+
+    document.getElementById('fileInput').addEventListener('change', function (event) {
+      const file = event.target.files[0];
+      if (file) {
+        const formData = new FormData();
+        formData.append('imageFile', file);
+
+        fetch('/upload_image', {
+          method: 'POST',
+          body: formData,
+          headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        })
+          .then(response => response.json())
+          .then(data => {
+            if (data.success) {
+              showSuccessAlert(`Imagen "${data.filename || file.name}" subida exitosamente.`);
+              fetchImagesAndRender();
+            } else {
+              showDangerAlert(data.error || 'Error al subir la imagen.');
+            }
+          })
+          .catch(() => showDangerAlert('Error al subir la imagen.'));
+      }
+    });
+
+    document.getElementById('fullscreen').addEventListener('click', function () {
+      const imageViewer = document.getElementById('imageViewer');
+      if (imageViewer.requestFullscreen) {
+        imageViewer.requestFullscreen();
+      } else if (imageViewer.webkitRequestFullscreen) {
+        imageViewer.webkitRequestFullscreen();
+      } else if (imageViewer.msRequestFullscreen) {
+        imageViewer.msRequestFullscreen();
+      }
+    });
+
+    document.getElementById('clearPlaylistButton').addEventListener('click', function () {
+      fetch('/clear_gallery', {
+        method: 'POST',
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            showSuccessAlert('La lista de reproducción ha sido limpiada.');
+            fetchImagesAndRender();
+          } else {
+            showDangerAlert(data.error || 'Error al limpiar la lista.');
+          }
+        })
+        .catch(() => showDangerAlert('Error al limpiar la lista.'));
+    });
+
+    // --- SORTABLE.JS PARA REORDENAR PLAYLIST ---
+    let sortable = null;
+    function initSortable() {
+      if (sortable) {
+        sortable.destroy();
+      }
+      sortable = Sortable.create(document.getElementById('playlist'), {
+        animation: 150,
+        // handle: '.drag-handle', // Puedes comentar o eliminar esta línea para permitir arrastrar desde cualquier parte
+        onEnd: function (evt) {
+          // Obtener el nuevo orden
+          const newOrder = [];
+          document.querySelectorAll('#playlist .playlist-item').forEach(item => {
+            const src = item.getAttribute('data-src');
+            const imgObj = images.find(img => img.url === src);
+            if (imgObj) newOrder.push(imgObj);
+          });
+          images = newOrder;
+          saveNewOrderOnServer(images.map(img => img.name));
+          // Actualizar el índice activo
+          setActivePlaylistItem(currentImageIndex);
+        }
+      });
+    }
+    function saveNewOrderOnServer(order) {
+      fetch('/reorder_gallery', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Requested-With': 'XMLHttpRequest'
+        },
+        body: JSON.stringify({ order: order })
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (!data.success) {
+            showDangerAlert(data.error || 'No se pudo guardar el nuevo orden.');
+          }
+        })
+        .catch(() => showDangerAlert('No se pudo guardar el nuevo orden.'));
+    }
+    // --- FIN SORTABLE.JS ---
+
+    document.addEventListener("DOMContentLoaded", fetchImagesAndRender);
+  </script>
+  <!-- El resto de tus scripts de charts y plugins aquí -->
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+  <script src="../assets/js/corporate-ui-dashboard.min.js?v=1.0.0"></script>
+</body>
+
+</html>

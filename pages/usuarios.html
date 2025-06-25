@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/">
+  <link rel="icon" type="image/png" href="../assets/img/">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <title>Promociones Y Cobranzas Beta</title>
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Noto+Sans:300,400,500,600,700,800|PT+Mono:300,400,500,600,700"
+    rel="stylesheet" />
+  <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
+  <script src="https://kit.fontawesome.com/349ee9c857.js" crossorigin="anonymous"></script>
+  <link id="pagestyle" href="../assets/css/corporate-ui-dashboard.css?v=1.0.0" rel="stylesheet" />
+  <style>
+    #alertsContainer {
+      position: fixed;
+      top: 1.5rem;
+      right: 1.5rem;
+      z-index: 2100;
+      min-width: 320px;
+      max-width: 96vw;
+      pointer-events: none;
+    }
+
+    .alert {
+      pointer-events: auto;
+      min-width: 320px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.13);
+      font-size: 1rem;
+      border-radius: .6rem;
+      margin-bottom: 1rem;
+      border: none;
+    }
+
+    .alert .material-icons,
+    .alert .alert-icon i {
+      font-size: 1.3em;
+      vertical-align: middle;
+      margin-right: .6em;
+    }
+
+    .alert .btn-close {
+      color: #fff;
+      opacity: .7;
+      font-size: 1.4em;
+      margin-left: 1em;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      outline: none;
+      line-height: 1;
+      float: right;
+    }
+
+    .alert.bg-gradient-warning {
+      color: #2c2c2c;
+    }
+
+    .alert .alert-text strong {
+      margin-right: .2em;
+    }
+
+    @media (max-width: 576px) {
+
+      #alertsContainer,
+      .alert {
+        min-width: 200px;
+        font-size: .95rem;
+      }
+
+      #alertsContainer {
+        right: 2vw;
+      }
+    }
+  </style>
+</head>
+
+<body class="g-sidenav-show bg-gray-100">
+  <aside
+    class="sidenav navbar navbar-vertical navbar-expand-xs border-0 bg-slate-900 fixed-start d-flex flex-column vh-100"
+    id="sidenav-main" style="min-width: 260px;">
+    <div class="sidenav-header">
+      <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-xl-none d-block"
+        id="iconSidenav"></i>
+      <a class="navbar-brand d-flex align-items-center m-0" href="#" target="_blank">
+        <span class="font-weight-bold text-lg text-white">PYCB Multimedia</span>
+      </a>
+    </div>
+    <div class="d-flex flex-column justify-content-between flex-grow-1">
+      <div class="collapse navbar-collapse px-4 overflow-auto" id="sidenav-collapse-main"
+        style="max-height: calc(100vh - 50px);">
+        <ul class="navbar-nav">
+          <li class="nav-item mt-3">
+            <span class="text-white text-uppercase font-weight-bold small px-3">Carga
+              de Contenido</span>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="dashboard.html">
+              <div class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
+                <svg width="30px" height="30px" fill="#FFFFFF" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </div>
+              <span class="nav-link-text ms-1 text-white">Subir
+                Videos</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./imagenes.html">
+              <div class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
+                <svg width="30px" height="30px" fill="#FFFFFF" viewBox="0 0 24 24">
+                  <path
+                    d="M21 15V7c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zm0-2H3V7h16v6zm-4-1l-3-3-3 3h6z" />
+                </svg>
+              </div>
+              <span class="nav-link-text ms-1 text-white">Subir
+                Imágenes</span>
+            </a>
+          </li>
+          <li class="nav-item mt-4">
+            <span class="text-white text-uppercase font-weight-bold small px-3">Vista
+              Previa</span>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./video.html">
+              <div class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
+                <svg width="30px" height="30px" fill="#FFFFFF" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </div>
+              <span class="nav-link-text ms-1 text-white">Videos</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./imagen.html">
+              <div class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
+                <svg width="30px" height="30px" fill="#FFFFFF" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </div>
+              <span class="nav-link-text ms-1 text-white">Imagen</span>
+            </a>
+          </li>
+          <li class="nav-item mt-4">
+            <span class="text-white text-uppercase font-weight-bold small px-3">Administración</span>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./usuarios.html">
+              <div class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
+                <svg width="30px" height="30px" fill="#FFFFFF" viewBox="0 0 24 24">
+                  <path d="M12 12c2.7 0 8 1.34 8 4v2H4v-2c0-2.66 5.3-4 8-4zm0-2a4 4 0 1 1 0-8 4 4 0 0 1 0 8z" />
+                </svg>
+              </div>
+              <span class="nav-link-text ms-1 text-white">Usuarios</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="px-4 py-3 mt-auto">
+        <a href="/logout" class="btn btn-danger w-100">Cerrar Sesión</a>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg flex-grow-1">
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur"
+      navbar-scroll="true">
+      <div class="container-fluid py-1 px-3">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Páginas</a></li>
+            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Usuarios</li>
+          </ol>
+          <h6 class="font-weight-bolder mb-0">Usuarios</h6>
+        </nav>
+      </div>
+    </nav>
+    <!-- Alertas estilo custom -->
+    <div id="alertsContainer"></div>
+
+    <div class="container py-5">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="card">
+            <div class="card-header pb-0 d-flex justify-content-between align-items-center">
+              <div>
+                <h6 class="mb-0">
+                  Usuarios de
+                  Dominio
+                  Permitidos
+                </h6>
+                <p class="text-sm mb-0 text-secondary">
+                  Administra
+                  los usuarios
+                  que pueden
+                  iniciar
+                  sesión
+                </p>
+              </div>
+              <button class="btn btn-success btn-sm mb-0" data-toggle="modal" data-target="#addUserModal">
+                <i class="material-icons text-sm align-middle">person_add</i>
+                Agregar Usuario
+              </button>
+            </div>
+            <div class="card-body px-0 pt-0 pb-2">
+              <div class="table-responsive p-0">
+                <table class="table align-items-center mb-0">
+                  <thead>
+                    <tr>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                        Usuario
+                      </th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                        Acción
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody id="userTableBody">
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content border-0 shadow-lg">
+          <form id="addUserForm" autocomplete="off">
+            <div class="modal-header bg-white border-bottom-0 pb-2">
+              <span class="material-icons text-success mr-2" style="font-size:2rem;">person_add</span>
+              <div>
+                <h5 class="modal-title font-weight-bold" id="addUserModalLabel">
+                  Agregar
+                  nuevo
+                  usuario</h5>
+                <small class="text-muted">Introduce
+                  el usuario
+                  de dominio
+                  autorizado
+                  para acceder
+                  al
+                  sistema.</small>
+              </div>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body pt-1">
+              <div class="form-group mb-3">
+                <label for="newUser" class="form-label font-weight-bold">Nombre
+                  de usuario
+                  <span class="text-danger">*</span></label>
+                <input type="text" id="newUser" class="form-control" placeholder="Ejemplo: jdavid" autocomplete="off">
+                <small class="form-text text-muted">Solo
+                  letras. No
+                  se permiten
+                  números ni
+                  símbolos.</small>
+                <div class="invalid-feedback">
+                  Por favor
+                  ingresa solo
+                  letras
+                  (mínimo 3
+                  caracteres,
+                  sin espacios
+                  ni números).
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer border-top-0 pt-0">
+              <button type="submit" class="btn btn-success font-weight-bold">
+                <i class="material-icons align-middle" style="font-size:18px;">check_circle</i>
+                Agregar
+              </button>
+              <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">
+                <i class="material-icons align-middle" style="font-size:18px;">close</i>
+                Cancelar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog"
+      aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header" style="border-bottom: none;">
+            <span class="material-icons text-danger mr-2">warning_amber</span>
+            <h5 class="modal-title" id="confirmDeleteModalLabel" style="font-weight:600;">Confirmar
+              eliminación</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            ¿Seguro que deseas eliminar el usuario <strong id="userToDeleteModal"></strong>?
+            Esta acción no se puede deshacer.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" id="confirmDeleteBtnModal">
+              <i class="material-icons align-middle" style="font-size:18px;">delete</i>
+              Sí, eliminar
+            </button>
+            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Custom alert notifications (styled as in your sample)
+      function showAlertCustom(message, type = 'success') {
+        const alertsContainer = document.getElementById('alertsContainer');
+        const bgClasses = {
+          success: 'bg-gradient-success',
+          danger: 'bg-gradient-danger',
+          warning: 'bg-gradient-warning',
+          info: 'bg-gradient-info'
+        };
+        const iconClasses = {
+          success: 'check_circle',
+          danger: 'error',
+          warning: 'warning',
+          info: 'info'
+        };
+        const strongLabel = {
+          success: '¡Éxito!',
+          danger: '¡Atención!',
+          warning: '¡Aviso!',
+          info: '¡Info!'
+        };
+
+        // Crea alerta
+        const alertDiv = document.createElement('div');
+        alertDiv.className = `alert ${bgClasses[type] || bgClasses.success} alert-dismissible fade show text-white`;
+        alertDiv.setAttribute('role', 'alert');
+        alertDiv.innerHTML = `
+          <span class="alert-icon align-middle"><span class="material-icons">${iconClasses[type] || iconClasses.success}</span></span>
+          <span class="alert-text"><strong>${strongLabel[type] || strongLabel.success}</strong> ${message}</span>
+          <button type="button" class="btn-close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        `;
+
+        // Cerrar alerta manual
+        alertDiv.querySelector('.btn-close').onclick = function () {
+          alertDiv.classList.remove('show');
+          alertDiv.classList.add('hide');
+          setTimeout(() => alertDiv.remove(), 350);
+        };
+
+        // Añadir y auto ocultar
+        alertsContainer.appendChild(alertDiv);
+        setTimeout(() => {
+          if (alertDiv.parentElement) {
+            alertDiv.classList.remove('show');
+            alertDiv.classList.add('hide');
+            setTimeout(() => alertDiv.remove(), 350);
+          }
+        }, 3000);
+      }
+
+      function fetchUsers() {
+        fetch('/list_users')
+          .then(response => {
+            if (!response.ok) throw new Error('Network response was not ok ' + response.statusText);
+            return response.json();
+          })
+          .then(users => {
+            const tbody = document.getElementById('userTableBody');
+            tbody.innerHTML = '';
+            if (!Array.isArray(users) || users.length === 0) {
+              const tr = document.createElement('tr');
+              tr.innerHTML = `<td colspan="2" class="text-center text-muted py-4">No hay usuarios registrados.</td>`;
+              tbody.appendChild(tr);
+              return;
+            }
+            users.forEach(user => {
+              const tr = document.createElement('tr');
+              tr.innerHTML = `
+                <td>
+                  <div class="d-flex px-2 py-1 align-items-center">
+                    <i class="material-icons text-secondary text-lg mr-2 align-middle">person</i>
+                    <span class="mb-0 text-sm font-weight-bold align-middle">${user}</span>
+                  </div>
+                </td>
+                <td class="align-middle text-center">
+                  <button type="button" class="btn btn-danger btn-sm" onclick="confirmRemoveUser('${user}')">
+                    <i class="material-icons text-sm align-middle">delete</i> Eliminar
+                  </button>
+                </td>
+              `;
+              tbody.appendChild(tr);
+            });
+          })
+          .catch(error => {
+            console.error('Error fetching users:', error);
+            showAlertCustom('Error al cargar usuarios: ' + error.message, 'danger');
+          });
+      }
+
+      function addUser(username) {
+        fetch('/add_user', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username })
+        })
+          .then(res => res.json())
+          .then(data => {
+            if (data.success) {
+              showAlertCustom(data.message || 'Usuario agregado exitosamente.', 'success');
+              fetchUsers();
+              $('#addUserModal').modal('hide');
+              document.getElementById('newUser').value = '';
+            } else if (data.error && data.error.toLowerCase().includes('ya existe')) {
+              showAlertCustom('El usuario ya está registrado.', 'danger');
+            } else if (data.error && data.error.toLowerCase().includes('dominio')) {
+              showAlertCustom('El usuario no existe en el dominio.', 'danger');
+            } else {
+              showAlertCustom(data.error || 'No se pudo agregar el usuario.', 'danger');
+            }
+          })
+          .catch(() => {
+            showAlertCustom('Error de conexión con el servidor al agregar usuario.', 'danger');
+          });
+      }
+
+      function confirmRemoveUser(username) {
+        userToDelete = username;
+        document.getElementById('userToDeleteModal').innerText = username;
+        $('#confirmDeleteModal').modal('show');
+      }
+
+      function removeUser(username) {
+        fetch('/remove_user', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username })
+        })
+          .then(res => res.json())
+          .then(data => {
+            if (data.success) {
+              showAlertCustom(data.message || 'Usuario eliminado exitosamente.', 'success');
+              fetchUsers();
+            } else if (data.error && data.error.toLowerCase().includes('no se encontró')) {
+              showAlertCustom('No se pudo eliminar el usuario.', 'danger');
+            } else {
+              showAlertCustom(data.error || 'No se pudo eliminar el usuario.', 'danger');
+            }
+          })
+          .catch(() => {
+            showAlertCustom('Error de conexión al intentar eliminar.', 'danger');
+          });
+      }
+
+      let userToDelete = null;
+
+      document.getElementById('confirmDeleteBtnModal').onclick = function () {
+        if (userToDelete) {
+          removeUser(userToDelete);
+          $('#confirmDeleteModal').modal('hide');
+        }
+      };
+
+      document.addEventListener('DOMContentLoaded', function () {
+        fetchUsers();
+
+        const form = document.getElementById('addUserForm');
+        const input = document.getElementById('newUser');
+        const regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ]{3,50}$/;
+
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          const username = input.value.trim();
+
+          if (!regex.test(username)) {
+            input.classList.add('is-invalid');
+            showAlertCustom('El nombre de usuario solo debe contener letras (mínimo 3 caracteres).', 'danger');
+            return;
+          }
+
+          input.classList.remove('is-invalid');
+          addUser(username.toLowerCase());
+        });
+
+        input.addEventListener('input', function () {
+          input.classList.remove('is-invalid');
+        });
+
+        // Initialize tooltips (if any, though not directly in this snippet)
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+          return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+      });
+
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/corporate-ui-dashboard.min.js?v=1.0.0"></script>
+  </main>
+</body>
+
+</html>

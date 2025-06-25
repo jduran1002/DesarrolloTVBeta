@@ -1,0 +1,314 @@
+├── app copy.py
+├── app.py
+├── assets
+│   ├── css
+│   │   ├── corporate-ui-dashboard.css
+│   │   ├── corporate-ui-dashboard.css.map
+│   │   ├── corporate-ui-dashboard.min.css
+│   │   ├── nucleo-icons.css
+│   │   ├── nucleo-svg.css
+│   ├── fonts
+│   │   ├── nucleo-icons.eot
+│   │   ├── nucleo-icons.svg
+│   │   ├── nucleo-icons.ttf
+│   │   ├── nucleo-icons.woff
+│   │   ├── nucleo-icons.woff2
+│   │   ├── nucleo.eot
+│   │   ├── nucleo.ttf
+│   │   ├── nucleo.woff
+│   │   ├── nucleo.woff2
+│   ├── img
+│   │   ├── 3d-cube.png
+│   │   ├── apple-icon.png
+│   │   ├── bg1.jpg
+│   │   ├── bruce-mars.jpg
+│   │   ├── corporate-ui-logo.svg
+│   │   ├── curved-images
+│   │   │   ├── img-6.jpg
+│   │   │   ├── img-7.jpg
+│   │   ├── down-arrow-dark.svg
+│   │   ├── down-arrow-white.svg
+│   │   ├── down-arrow.svg
+│   │   ├── favicon.png
+│   │   ├── header-blue-purple.jpg
+│   │   ├── header-orange-purple.jpg
+│   │   ├── image-sign-in.jpg
+│   │   ├── image-sign-up.jpg
+│   │   ├── img-1.jpg
+│   │   ├── img-2.jpg
+│   │   ├── img-3.jpg
+│   │   ├── img-4.jpg
+│   │   ├── img-5.jpg
+│   │   ├── img-8.jpg
+│   │   ├── img-9.jpg
+│   │   ├── logo-ct-dark.png
+│   │   ├── logo-ct.png
+│   │   ├── logos
+│   │   │   ├── facebook-logo.svg
+│   │   │   ├── google-logo.svg
+│   │   │   ├── mastercard-white.png
+│   │   │   ├── mastercard.png
+│   │   │   ├── visa-white.png
+│   │   │   ├── visa.png
+│   │   │   ├── wifi-white.png
+│   │   ├── marie.jpg
+│   │   ├── small-logos
+│   │   │   ├── icon-sun-cloud.png
+│   │   │   ├── logo-atlassian.svg
+│   │   │   ├── logo-google.svg
+│   │   │   ├── logo-invision.svg
+│   │   │   ├── logo-jira.svg
+│   │   │   ├── logo-slack.svg
+│   │   │   ├── logo-spotify.svg
+│   │   │   ├── logo-webdev.svg
+│   │   │   ├── logo-xd.svg
+│   │   ├── team-1.jpg
+│   │   ├── team-2.jpg
+│   │   ├── team-3.jpg
+│   │   ├── team-4.jpg
+│   │   ├── team-5.jpg
+│   │   ├── team-6.jpg
+│   │   ├── theme
+│   │   │   ├── angular.jpg
+│   │   │   ├── bootstrap.jpg
+│   │   │   ├── dribbble.png
+│   │   │   ├── dropbox.png
+│   │   │   ├── mastercard.png
+│   │   │   ├── paypal.png
+│   │   │   ├── react.jpg
+│   │   │   ├── sketch.jpg
+│   │   │   ├── slack.png
+│   │   │   ├── spotify.jpeg
+│   │   │   ├── tim.png
+│   │   │   ├── unass.jpg
+│   │   │   ├── visa.png
+│   │   │   ├── vue.jpg
+│   ├── js
+│   │   ├── core
+│   │   │   ├── bootstrap.bundle.min.js
+│   │   │   ├── bootstrap.min.js
+│   │   │   ├── popper.min.js
+│   │   ├── corporate-ui-dashboard.js
+│   │   ├── corporate-ui-dashboard.js.map
+│   │   ├── corporate-ui-dashboard.min.js
+│   │   ├── plugins
+│   │   │   ├── bootstrap-notify.js
+│   │   │   ├── Chart.extension.js
+│   │   │   ├── chartjs.min.js
+│   │   │   ├── perfect-scrollbar.min.js
+│   │   │   ├── smooth-scrollbar.min.js
+│   │   │   ├── swiper-bundle.min.js
+│   ├── scss
+│   │   ├── corporate-ui-dashboard
+│   │   │   ├── bootstrap
+│   │   │   │   ├── bootstrap-grid.scss
+│   │   │   │   ├── bootstrap-reboot.scss
+│   │   │   │   ├── bootstrap-utilities.scss
+│   │   │   │   ├── bootstrap.scss
+│   │   │   │   ├── forms
+│   │   │   │   │   ├── _floating-labels.scss
+│   │   │   │   │   ├── _form-check.scss
+│   │   │   │   │   ├── _form-control.scss
+│   │   │   │   │   ├── _form-range.scss
+│   │   │   │   │   ├── _form-select.scss
+│   │   │   │   │   ├── _form-text.scss
+│   │   │   │   │   ├── _input-group.scss
+│   │   │   │   │   ├── _labels.scss
+│   │   │   │   │   ├── _validation.scss
+│   │   │   │   ├── helpers
+│   │   │   │   │   ├── _clearfix.scss
+│   │   │   │   │   ├── _color-bg.scss
+│   │   │   │   │   ├── _colored-links.scss
+│   │   │   │   │   ├── _position.scss
+│   │   │   │   │   ├── _ratio.scss
+│   │   │   │   │   ├── _stacks.scss
+│   │   │   │   │   ├── _stretched-link.scss
+│   │   │   │   │   ├── _text-truncation.scss
+│   │   │   │   │   ├── _visually-hidden.scss
+│   │   │   │   │   ├── _vr.scss
+│   │   │   │   ├── mixins
+│   │   │   │   │   ├── _alert.scss
+│   │   │   │   │   ├── _backdrop.scss
+│   │   │   │   │   ├── _border-radius.scss
+│   │   │   │   │   ├── _box-shadow.scss
+│   │   │   │   │   ├── _breakpoints.scss
+│   │   │   │   │   ├── _buttons.scss
+│   │   │   │   │   ├── _caret.scss
+│   │   │   │   │   ├── _clearfix.scss
+│   │   │   │   │   ├── _color-scheme.scss
+│   │   │   │   │   ├── _container.scss
+│   │   │   │   │   ├── _deprecate.scss
+│   │   │   │   │   ├── _forms.scss
+│   │   │   │   │   ├── _gradients.scss
+│   │   │   │   │   ├── _grid.scss
+│   │   │   │   │   ├── _image.scss
+│   │   │   │   │   ├── _list-group.scss
+│   │   │   │   │   ├── _lists.scss
+│   │   │   │   │   ├── _pagination.scss
+│   │   │   │   │   ├── _reset-text.scss
+│   │   │   │   │   ├── _resize.scss
+│   │   │   │   │   ├── _table-variants.scss
+│   │   │   │   │   ├── _text-truncate.scss
+│   │   │   │   │   ├── _transition.scss
+│   │   │   │   │   ├── _utilities.scss
+│   │   │   │   │   ├── _visually-hidden.scss
+│   │   │   │   ├── utilities
+│   │   │   │   │   ├── _api.scss
+│   │   │   │   ├── vendor
+│   │   │   │   │   ├── _rfs.scss
+│   │   │   │   ├── _accordion.scss
+│   │   │   │   ├── _alert.scss
+│   │   │   │   ├── _badge.scss
+│   │   │   │   ├── _breadcrumb.scss
+│   │   │   │   ├── _button-group.scss
+│   │   │   │   ├── _buttons.scss
+│   │   │   │   ├── _card.scss
+│   │   │   │   ├── _carousel.scss
+│   │   │   │   ├── _close.scss
+│   │   │   │   ├── _containers.scss
+│   │   │   │   ├── _dropdown.scss
+│   │   │   │   ├── _forms.scss
+│   │   │   │   ├── _functions.scss
+│   │   │   │   ├── _grid.scss
+│   │   │   │   ├── _helpers.scss
+│   │   │   │   ├── _images.scss
+│   │   │   │   ├── _list-group.scss
+│   │   │   │   ├── _maps.scss
+│   │   │   │   ├── _mixins.scss
+│   │   │   │   ├── _modal.scss
+│   │   │   │   ├── _nav.scss
+│   │   │   │   ├── _navbar.scss
+│   │   │   │   ├── _offcanvas.scss
+│   │   │   │   ├── _pagination.scss
+│   │   │   │   ├── _placeholders.scss
+│   │   │   │   ├── _popover.scss
+│   │   │   │   ├── _progress.scss
+│   │   │   │   ├── _reboot.scss
+│   │   │   │   ├── _root.scss
+│   │   │   │   ├── _spinners.scss
+│   │   │   │   ├── _tables.scss
+│   │   │   │   ├── _toasts.scss
+│   │   │   │   ├── _tooltip.scss
+│   │   │   │   ├── _transitions.scss
+│   │   │   │   ├── _type.scss
+│   │   │   │   ├── _utilities.scss
+│   │   │   │   ├── _variables.scss
+│   │   │   ├── cards
+│   │   │   │   ├── card-background.scss
+│   │   │   ├── custom
+│   │   │   │   ├── _styles.scss
+│   │   │   │   ├── _variables.scss
+│   │   │   ├── forms
+│   │   │   │   ├── _form-check.scss
+│   │   │   │   ├── _form-select.scss
+│   │   │   │   ├── _form-switch.scss
+│   │   │   │   ├── _forms.scss
+│   │   │   │   ├── _input-group.scss
+│   │   │   │   ├── _inputs.scss
+│   │   │   │   ├── _labels.scss
+│   │   │   ├── mixins
+│   │   │   │   ├── mixins.scss
+│   │   │   │   ├── _badge.scss
+│   │   │   │   ├── _colored-shadows.scss
+│   │   │   │   ├── _hover.scss
+│   │   │   │   ├── _social-buttons.scss
+│   │   │   ├── plugins
+│   │   │   │   ├── free
+│   │   │   │   │   ├── plugins.scss
+│   │   │   │   │   ├── _flatpickr.scss
+│   │   │   │   │   ├── _nouislider.scss
+│   │   │   │   │   ├── _perfect-scrollbar.scss
+│   │   │   │   │   ├── _prism.scss
+│   │   │   │   │   ├── _swiper.scss
+│   │   │   ├── theme.scss
+│   │   │   ├── variables
+│   │   │   │   ├── _animations.scss
+│   │   │   │   ├── _avatars.scss
+│   │   │   │   ├── _badge.scss
+│   │   │   │   ├── _breadcrumb.scss
+│   │   │   │   ├── _cards-extend.scss
+│   │   │   │   ├── _cards.scss
+│   │   │   │   ├── _choices.scss
+│   │   │   │   ├── _dark-version.scss
+│   │   │   │   ├── _dropdowns.scss
+│   │   │   │   ├── _fixed-plugin.scss
+│   │   │   │   ├── _form-switch.scss
+│   │   │   │   ├── _full-calendar.scss
+│   │   │   │   ├── _header.scss
+│   │   │   │   ├── _info-areas.scss
+│   │   │   │   ├── _misc-extend.scss
+│   │   │   │   ├── _misc.scss
+│   │   │   │   ├── _navbar-vertical.scss
+│   │   │   │   ├── _navbar.scss
+│   │   │   │   ├── _pagination.scss
+│   │   │   │   ├── _rtl.scss
+│   │   │   │   ├── _social-buttons.scss
+│   │   │   │   ├── _table.scss
+│   │   │   │   ├── _timeline.scss
+│   │   │   │   ├── _utilities-extend.scss
+│   │   │   │   ├── _utilities.scss
+│   │   │   │   ├── _virtual-reality.scss
+│   │   │   ├── _alert.scss
+│   │   │   ├── _avatars.scss
+│   │   │   ├── _badge.scss
+│   │   │   ├── _breadcrumbs.scss
+│   │   │   ├── _button-group.scss
+│   │   │   ├── _buttons.scss
+│   │   │   ├── _cards.scss
+│   │   │   ├── _dark-version.scss
+│   │   │   ├── _dropdown.scss
+│   │   │   ├── _dropup.scss
+│   │   │   ├── _fixed-plugin.scss
+│   │   │   ├── _footer.scss
+│   │   │   ├── _forms.scss
+│   │   │   ├── _gradients.scss
+│   │   │   ├── _header.scss
+│   │   │   ├── _info-areas.scss
+│   │   │   ├── _misc.scss
+│   │   │   ├── _nav.scss
+│   │   │   ├── _navbar-vertical.scss
+│   │   │   ├── _navbar.scss
+│   │   │   ├── _pagination.scss
+│   │   │   ├── _popovers.scss
+│   │   │   ├── _progress.scss
+│   │   │   ├── _rtl.scss
+│   │   │   ├── _social-buttons.scss
+│   │   │   ├── _tables.scss
+│   │   │   ├── _tilt.scss
+│   │   │   ├── _timeline.scss
+│   │   │   ├── _tooltips.scss
+│   │   │   ├── _typography.scss
+│   │   │   ├── _utilities-extend.scss
+│   │   │   ├── _utilities.scss
+│   │   │   ├── _variables.scss
+│   │   ├── corporate-ui-dashboard.scss
+├── DB
+│   ├── tabla.db
+├── estructura.txt
+├── generar_estructura.py
+├── gestion_usuarios.py
+├── pages
+│   ├── dashboard.html
+│   ├── imagen.html
+│   ├── imagenes.html
+│   ├── script.js
+│   ├── script2.js
+│   ├── sign-in.html
+│   ├── sign-up.html
+│   ├── style.css
+│   ├── video.html
+├── procesar_login.py
+├── uploads
+│   ├── Fondos
+│   │   ├── miles-morales-falling_3840x2400_xtrafondos.com.jpg
+│   │   ├── spider-man-into-the-spiderverse_5120x2504_xtrafondos.com.jpg
+│   │   ├── spider-man-miles-morales-blitzfinn_3840x2160_xtrafondos.com.jpg
+│   │   ├── spider-man-miles-morales_3840x2160_xtrafondos.com.jpg
+│   ├── Videos
+│   │   ├── 174086-850404739_small.mp4
+│   │   ├── 215500_small.mp4
+│   │   ├── 856309-hd_1920_1080_30fps.mp4
+│   │   ├── YDRAY-CONTROLES-DE-ACCESO-ALTA.mp4
+├── __pycache__
+│   ├── db_connection.cpython-312.pyc
+│   ├── gestion_usuarios.cpython-312.pyc

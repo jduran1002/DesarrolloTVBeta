@@ -5,6 +5,7 @@ from ldap3 import Server, Connection, ALL, Tls
 from werkzeug.utils import secure_filename
 from datetime import timedelta
 import json
+from functools import wraps
 
 # Configurar la aplicación Flask
 app = Flask(__name__, 
@@ -19,15 +20,25 @@ app.permanent_session_lifetime = timedelta(minutes=40)  # Tiempo de vida de la s
 UPLOAD_FOLDER = r'C:\xampp\htdocs\Desarrollo TV Beta\uploads\Videos'
 IMAGE_FOLDER = r'C:\xampp\htdocs\Desarrollo TV Beta\uploads\Imagenes'
 ORDER_FILE = os.path.join(IMAGE_FOLDER, 'order.json')
+USERS_FILE = os.path.join(os.path.dirname(__file__), 'users.json')
 ALLOWED_VIDEO_EXTENSIONS = {'mp4', 'avi', 'mov', 'wmv'}
 ALLOWED_IMAGE_EXTENSIONS = {'jpg', 'jpeg', 'png', 'gif'}
 
-USUARIOS_PERMITIDOS = [
-    'pgordillo', 'cpedraza', 'jochoa', 'ccastro',
-    'yvega', 'sposada', 'lfajardo', 'ndiaz',
-    'otorres', 'adiaz', 'nchavez', 'lmendoza',
-    'jduran'
-]
+# Usuarios permitidos (con persistencia en archivo)
+if os.path.exists(USERS_FILE):
+    with open(USERS_FILE, encoding="utf-8") as f:
+        USUARIOS_PERMITIDOS = json.load(f)
+else:
+    USUARIOS_PERMITIDOS = [
+        'pgordillo', 'cpedraza', 'jochoa', 'ccastro',
+        'yvega', 'sposada', 'lfajardo', 'ndiaz',
+        'otorres', 'adiaz', 'nchavez', 'lmendoza',
+        'jduran'
+    ]
+
+def save_usuarios_permitidos():
+    with open(USERS_FILE, "w", encoding="utf-8") as f:
+        json.dump(USUARIOS_PERMITIDOS, f, ensure_ascii=False, indent=2)
 
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(IMAGE_FOLDER, exist_ok=True)
@@ -47,6 +58,25 @@ def autenticar_usuario(username, password):
             return False
     except Exception as e:
         print(f"Error al autenticar: {e}")
+        return False
+
+# NUEVO: Validar usuario en LDAP (sin password, sólo existencia)
+def usuario_existe_en_dominio(username):
+    search_user = "jduran@pdc.cobranzasbeta.com.co"  # Usuario de consulta AD, debe tener permisos de búsqueda
+    search_pass = "Beta.2025*+"  # Cambia esto a la contraseña real del usuario de búsqueda
+    try:
+        conn = Connection(
+            server,
+            user=search_user,
+            password=search_pass,
+            auto_bind=True
+        )
+        search_base = 'DC=pdc,DC=cobranzasbeta,DC=com,DC=co'
+        search_filter = f'(&(objectClass=user)(sAMAccountName={username}))'
+        conn.search(search_base, search_filter, attributes=["cn"])
+        return len(conn.entries) > 0
+    except Exception as e:
+        print(f"Error buscando usuario en AD: {e}")
         return False
 
 def allowed_file(filename, allowed_extensions):
@@ -89,6 +119,16 @@ def list_images_from_folder(folder):
         images.append({"name": filename, "size": size, "url": image_url})
     return images
 
+# Decorador para proteger rutas
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'username' not in session:
+            flash('Debes iniciar sesión primero.', 'error')
+            return redirect(url_for('index'))
+        return f(*args, **kwargs)
+    return decorated_function
+
 @app.route('/')
 def home():
     return redirect(url_for('index'))
@@ -97,14 +137,43 @@ def home():
 def index():
     return render_template('sign-in.html')
 
+@app.route('/usuarios.html')
+@login_required
+def usuarios():
+    return render_template('usuarios.html')
+
 @app.route('/dashboard.html')
+@login_required
 def dashboard():
-    if 'username' not in session:
-        flash('Debes iniciar sesión primero.', 'error')
-        return redirect(url_for('index'))
     videos = list_videos_from_folder(UPLOAD_FOLDER)
     images = list_images_from_folder(IMAGE_FOLDER)
     return render_template('dashboard.html', videos=videos, images=images)
+
+@app.route('/imagenes.html', methods=['GET'])
+@login_required
+def imagenes():
+    images = list_images_from_folder(IMAGE_FOLDER)
+    return render_template('imagenes.html', images=images)
+
+@app.route('/video.html', methods=['GET'])
+def video():
+    videos = list_videos_from_folder(UPLOAD_FOLDER)
+    return render_template('video.html', videos=videos)
+
+@app.route('/imagen.html', methods=['GET'])
+def imagen_auto():
+    images = list_images_from_folder(IMAGE_FOLDER)
+    return render_template('imagen.html', images=images)
+
+@app.route('/pages/sign-in.html', methods=['GET'])
+def sign_in():
+    return render_template('sign-in.html')
+
+
+@app.route('/pages/dashboard.html', methods=['GET'])
+@login_required
+def dashboard_page():
+    return render_template('dashboard.html')
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -132,39 +201,6 @@ def before_request():
     if 'username' in session:
         session.modified = True
 
-@app.route('/video.html', methods=['GET'])
-def video():
-    videos = list_videos_from_folder(UPLOAD_FOLDER)
-    return render_template('video.html', videos=videos)
-
-@app.route('/imagen.html', methods=['GET'])
-def imagen_auto():
-    images = list_images_from_folder(IMAGE_FOLDER)
-    return render_template('imagen.html', images=images)
-
-@app.route('/imagenes.html', methods=['GET'])
-def imagenes():
-    if 'username' not in session:
-        flash('Debes iniciar sesión primero.', 'error')
-        return redirect(url_for('index'))
-    images = list_images_from_folder(IMAGE_FOLDER)
-    return render_template('imagenes.html', images=images)
-
-@app.route('/pages/sign-in.html', methods=['GET'])
-def sign_in():
-    return render_template('sign-in.html')
-
-@app.route('/pages/sign-up.html', methods=['GET'])
-def sign_up():
-    return render_template('sign-up.html')
-
-@app.route('/pages/dashboard.html', methods=['GET'])
-def dashboard_page():
-    if 'username' not in session:
-        flash('Debes iniciar sesión primero.', 'error')
-        return redirect(url_for('index'))
-    return render_template('dashboard.html')
-
 @app.route('/uploads/<path:filename>')
 def serve_video(filename):
     return send_from_directory(UPLOAD_FOLDER, filename)
@@ -187,6 +223,7 @@ def list_images():
     return jsonify(images)
 
 @app.route('/upload_image', methods=['POST'])
+@login_required
 def upload_image():
     file = request.files.get('imageFile')
     if not file or file.filename == '':
@@ -216,6 +253,7 @@ def upload_image():
     return redirect(url_for('dashboard'))
 
 @app.route('/clear_gallery', methods=['POST'])
+@login_required
 def clear_gallery():
     error = None
     for filename in os.listdir(IMAGE_FOLDER):
@@ -242,6 +280,7 @@ def clear_gallery():
     return redirect(url_for('dashboard'))
 
 @app.route('/clear_playlist', methods=['POST'])
+@login_required
 def clear_playlist():
     error = None
     for filename in os.listdir(UPLOAD_FOLDER):
@@ -262,6 +301,7 @@ def clear_playlist():
     return redirect(url_for('dashboard'))
 
 @app.route('/upload', methods=['POST'])
+@login_required
 def upload_file():
     file = request.files.get('videoFile')
     if not file or file.filename == '':
@@ -279,6 +319,7 @@ def upload_file():
     return redirect(url_for('dashboard'))
 
 @app.route('/reorder_gallery', methods=['POST'])
+@login_required
 def reorder_gallery():
     # Espera un JSON: { "order": ["img1.jpg", "img2.jpg", ...] }
     data = request.get_json()
@@ -293,5 +334,45 @@ def reorder_gallery():
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)}), 500
 
+# --- API de usuarios permitidos ---
+
+@app.route('/list_users', methods=['GET'])
+@login_required
+def list_users():
+    return jsonify(USUARIOS_PERMITIDOS)
+
+@app.route('/add_user', methods=['POST'])
+@login_required
+def add_user():
+    data = request.get_json()
+    username = data.get('username', '').strip().lower()
+    if not username:
+        return jsonify({'success': False, 'error': 'Usuario inválido.'}), 400
+
+    # 1. ¿Ya está registrado?
+    if username in [u.lower() for u in USUARIOS_PERMITIDOS]:
+        return jsonify({'success': False, 'error': 'Usuario ya existe.'}), 400
+
+    # 2. ¿Existe en el dominio?
+    if not usuario_existe_en_dominio(username):
+        return jsonify({'success': False, 'error': 'Usuario no existe en el dominio.'}), 400
+
+    # 3. Lo agregas
+    USUARIOS_PERMITIDOS.append(username)
+    save_usuarios_permitidos()
+    return jsonify({'success': True, 'message': f'Usuario {username} agregado.'})
+
+@app.route('/remove_user', methods=['POST'])
+@login_required
+def remove_user():
+    data = request.get_json()
+    username = data.get('username', '').strip().lower()
+    for u in USUARIOS_PERMITIDOS:
+        if u.lower() == username:
+            USUARIOS_PERMITIDOS.remove(u)
+            save_usuarios_permitidos()
+            return jsonify({'success': True, 'message': f'Usuario {username} eliminado.'})
+    return jsonify({'success': False, 'error': 'Usuario no encontrado.'}), 404
+
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000) 
+    app.run(host='0.0.0.0', port=5000)
